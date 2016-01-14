@@ -1,0 +1,27 @@
+#!/bin/bash -e
+
+MISSING_VAR_MESSAGE="must be set"
+: ${PORT0:?'Missing $PORT0 from Marathon. Should be the exhibitor HTTP interface port'}
+: ${PORT1:?'Missing $PORT1 from Marathon. Should be the zookeeper client port'}
+: ${PORT2:?'Missing $PORT2 from Marathon. Should be the zookeeper connect port'}
+: ${PORT3:?'Missing $PORT2 from Marathon. Should be the zookeeper leader port'}
+
+
+cat <<EOF > /opt/exhibitor.properties
+zookeeper-install-directory=/opt/zookeeper
+client-port=$PORT1
+connect-port=$PORT2
+election-port=$PORT3
+zoo-cfg-extra=tickTime\=2000&initLimit\=10&syncLimit\=5&quorumListenOnAllIPs\=true
+auto-manage-instances-settling-period-ms=0
+auto-manage-instances=1
+zookeeper-data-directory=/opt/zookeeper/snapshots
+zookeeper-log-directory=/opt/zookeeper/transactions
+log-index-directory=/opt/zookeeper/transactions
+EOF
+
+cat <<EOF > /opt/zookeeper/conf/java.env
+JVM_OPTS="$ZK_JVM_OPTS"
+EOF
+
+java $EXHIBITOR_JVM_OPTS -jar /opt/exhibitor-1.5.6-all.jar --defaultconfig=/opt/exhibitor.properties "--port=$PORT0" $@
