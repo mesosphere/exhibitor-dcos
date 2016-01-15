@@ -1,4 +1,4 @@
-FROM java:openjdk-7-jre
+FROM java:openjdk-7-jdk
 MAINTAINER support@mesosphere.io
 
 # Update java settings so DNS changes take hold.
