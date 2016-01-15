@@ -11,3 +11,9 @@ Now connect your clients! For example, with the default name and port:
 ```
 $ some-command ... --zk_url=zk://exhibitor-dcos.marathon.mesos:31886 ...
 ```
+
+Check the cluster status:
+
+```
+$ curl -s http://dcos-exhibitor.marathon.mesos:31885/exhibitor/v1/cluster/status | jq '.'
+```
