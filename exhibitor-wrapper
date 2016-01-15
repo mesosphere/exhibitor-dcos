@@ -21,7 +21,7 @@ log-index-directory=/opt/zookeeper/transactions
 EOF
 
 cat <<EOF > /opt/zookeeper/conf/java.env
-JVM_OPTS="$ZK_JVM_OPTS"
+SERVER_JVMFLAGS="$SERVER_JVMFLAGS $ZK_JVM_OPTS"
 EOF
 
 java $EXHIBITOR_JVM_OPTS -jar /opt/exhibitor-1.5.6-all.jar --defaultconfig=/opt/exhibitor.properties "--port=$PORT0" $@
