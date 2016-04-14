@@ -6,7 +6,7 @@ RUN grep '^networkaddress.cache.ttl=' /etc/java-7-openjdk/security/java.security
 
 RUN \
     # Install zookeeper
-    curl -Lo /tmp/zookeeper.tgz http://apache.osuosl.org/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz \
+    curl -Lo /tmp/zookeeper.tgz http://apache.osuosl.org/zookeeper/zookeeper-3.4.8/zookeeper-3.4.8.tar.gz \
     && mkdir -p /opt/zookeeper/transactions /opt/zookeeper/snapshots \
     && tar -xzf /tmp/zookeeper.tgz -C /opt/zookeeper --strip=1 \
     && rm /tmp/zookeeper.tgz \
