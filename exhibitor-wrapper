@@ -15,9 +15,9 @@ election-port=$PORT3
 zoo-cfg-extra=tickTime\=2000&initLimit\=10&syncLimit\=5&quorumListenOnAllIPs\=true
 auto-manage-instances-settling-period-ms=0
 auto-manage-instances=1
-zookeeper-data-directory=/opt/zookeeper/snapshots
-zookeeper-log-directory=/opt/zookeeper/transactions
-log-index-directory=/opt/zookeeper/transactions
+zookeeper-data-directory=/var/lib/zookeeper/snapshots
+zookeeper-log-directory=/var/lib/zookeeper/transactions
+log-index-directory=/var/lib/zookeeper/transactions
 EOF
 
 cat <<EOF > /opt/zookeeper/conf/java.env
