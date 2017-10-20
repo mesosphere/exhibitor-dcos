@@ -25,4 +25,11 @@ SERVER_JVMFLAGS="$SERVER_JVMFLAGS $ZK_JVM_OPTS"
 ZOO_LOG_DIR="$MESOS_SANDBOX"
 EOF
 
+# 
+# Force ZK output to stdout.  The problem is zkServer.sh writes its log4j CONSOLE
+# output to file zookeeper.out, which is not configurable and has no rotation, so it
+# fill disk on DCOS.  This forces it back to stdout where the Mesos slave can rotate it.
+#
+sed -i 's,_ZOO_DAEMON_OUT="$ZOO_LOG_DIR/zookeeper.out",_ZOO_DAEMON_OUT=/dev/null,' /opt/zookeeper/bin/zkServer.sh
+
 java $EXHIBITOR_JVM_OPTS -jar /opt/exhibitor-1.5.6-all.jar --defaultconfig=/opt/exhibitor.properties "--port=$PORT0" $@
